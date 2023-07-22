@@ -7,6 +7,10 @@ import User from './user.model';
 import bcrypt from 'bcrypt';
 
 const registerUser = async (payload: IUser): Promise<IUser> => {
+  payload.password = await bcrypt.hash(
+    payload.password,
+    Number(config.bcrypt_hash_sold)
+  );
   payload.role = 'user';
   const result = await User.create(payload);
   return result;

@@ -3,7 +3,6 @@ import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { IBook } from './books.interfaces';
 import { BookServices } from './books.services';
-import { JwtPayload } from 'jsonwebtoken';
 
 const createBook = catchAsync(async (req: Request, res: Response) => {
   const { ...bookInfo } = req.body;
@@ -18,6 +17,8 @@ const createBook = catchAsync(async (req: Request, res: Response) => {
 });
 const getBooks = catchAsync(async (req: Request, res: Response) => {
   const { ...queryData } = req.query;
+  console.log({ serviceQueryparams: queryData });
+
   const result = await BookServices.getBooks(queryData);
 
   sendResponse(res, {

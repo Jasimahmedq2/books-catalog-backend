@@ -42,7 +42,7 @@ const deleteBook = async (id: string) => {
 };
 const getSingleBook = async (id: string): Promise<IBook | null> => {
   const result = await Book.findOne({ _id: id }).populate('reviews.user');
-  console.log(result)
+  console.log(result);
   return result;
 };
 const getAllBooks = async (): Promise<IBook[] | null> => {
