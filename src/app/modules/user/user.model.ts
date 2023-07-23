@@ -1,5 +1,11 @@
 import { Schema, model } from 'mongoose';
-import { IUser } from './user.interfaces';
+import { IReadStatus, IUser } from './user.interfaces';
+
+const IReadStatusConstant: IReadStatus[] = [
+  'reading',
+  'plan to read',
+  'finished read',
+];
 
 // Define the User schema
 const UserSchema = new Schema<IUser>(
@@ -26,6 +32,35 @@ const UserSchema = new Schema<IUser>(
       type: String,
       required: true,
       unique: true,
+    },
+    wishList: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'book',
+          unique: true,
+        },
+      ],
+      default: [],
+    },
+    readingList: {
+      type: [
+        {
+          book: {
+            type: Schema.Types.ObjectId,
+            ref: 'book',
+            required: true,
+            unique: true,
+          },
+          readStatus: {
+            type: String,
+            enum: IReadStatusConstant,
+            default: 'plan to read',
+            required: true,
+          },
+        },
+      ],
+      default: [],
     },
   },
   {

@@ -1,5 +1,7 @@
 import { Types } from 'mongoose';
 
+export type IReadStatus = 'reading' | 'plan to read' | 'finished read';
+
 export type IUser = {
   name: {
     firstName: string;
@@ -8,6 +10,11 @@ export type IUser = {
   role: string;
   password: string;
   email: string;
+  wishList: Types.ObjectId[];
+  readingList: {
+    book: Types.ObjectId;
+    readStatus: IReadStatus;
+  }[];
   createdAt: Date;
   updatedAt: Date;
 };
